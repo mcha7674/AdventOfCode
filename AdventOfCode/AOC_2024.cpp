@@ -59,9 +59,14 @@ bool AOC_2024::Day1()
 	*/
 
     // Load the Input
-    vector<pair<int, int>> input;
-    Load_Input("Input/2024/Day1.txt", input, 1);
+    vector<int> location_ids;
+    Load_Input("Input/2024/Day1.txt", location_ids, 1);
 
+    // Process the input
+    for (auto lcoation : location_ids)
+    {
+
+    }
 
     // Is Problem Solved?
     return false;

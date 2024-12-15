@@ -3,6 +3,7 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#include <sstream>
 using namespace std;
 
 class AOC
@@ -92,30 +93,42 @@ public:
 
 	// Load input onto an object
 	template <typename T>
-	bool Load_Input(string fileName, T input, int day)
+	bool Load_Input(string fileName, T &input, int day)
 	{
+		// Load FIle
 		std::ifstream file(fileName); // Replace with your file name
 		std::string line;
-
-		if (file.is_open()) {
-			while (getline(file, line)) {
-				std::cout << line << std::endl; // Process the line
-			}
-			file.close();
-		}
+		if (file.is_open()) {}
 		else {
 			std::cerr << "Error opening file." << std::endl;
+			return false;
 		}
 
+		// Process File Contents
+		int lineNum = 1;
 		switch (day)
 		{
 		case 1:
+			// Process Each Line in the file
+			while (getline(file, line)) {
+				// Day 1 loads to integers side by side, seperated by a space.
+				// These integers are then stored within a vector where 0 + even index 
+				// represents the left coloumn of ints and all odd numbers represent right 
+				// column of ints. Inputs always in pairs
+				istringstream iss(line);
+				int locationID;
+				while (iss >> locationID) {
+					input.push_back(locationID);
+				}
+				lineNum++;
+			}
+			file.close();
 			break;
 		default:
 			break;
 		}
 
-		return false;
+		return true;
 	}
 
 private:
