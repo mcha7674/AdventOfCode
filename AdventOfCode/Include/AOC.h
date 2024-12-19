@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 #include <sstream>
+
+#include "Helpers.h"
 using namespace std;
 
 class AOC
@@ -60,9 +62,9 @@ public:
 	virtual ~AOC_2024() {}
 
 	virtual bool Day1() override;
-	/*virtual bool Day2() override;
+	virtual bool Day2() override;
 	virtual bool Day3() override;
-	virtual bool Day4() override;
+	/*virtual bool Day4() override;
 	virtual bool Day5() override;
 	virtual bool Day6() override;
 	virtual bool Day7() override;
@@ -110,7 +112,8 @@ public:
 		{
 		case 1:
 			// Process Each Line in the file
-			while (getline(file, line)) {
+			while (getline(file, line)) 
+			{
 				// Day 1 loads to integers side by side, seperated by a space.
 				// These integers are then stored within a vector where 0 + even index 
 				// represents the left coloumn of ints and all odd numbers represent right 
@@ -122,11 +125,64 @@ public:
 				}
 				lineNum++;
 			}
-			file.close();
 			break;
+		case 3:
+			while (getline(file, line)) 
+			{
+				// Day 3 loads in characters to analyze
+				istringstream iss(line);
+				char c;
+				std::vector<char> line;
+				while (iss.get(c)) {
+					input.push_back(c);
+				}
+				lineNum++;
+			}
 		default:
 			break;
 		}
+		file.close();
+
+		return true;
+	}
+
+	// Load input overload with a 2d input
+	template <typename T>
+	bool Load_Input(string fileName, std::vector<std::vector<T>>& input, int day)
+	{
+		// Load FIle
+		std::ifstream file(fileName); // Replace with your file name
+		std::string line;
+		if (file.is_open()) {}
+		else {
+			std::cerr << "Error opening file." << std::endl;
+			return false;
+		}
+
+		// Process File Contents
+		int lineNum = 1;
+		switch (day)
+		{
+		case 2:
+			while (getline(file, line))
+			{
+				// Day 1 loads to integers side by side, seperated by a space.
+				// These integers are then stored within a vector where 0 + even index 
+				// represents the left coloumn of ints and all odd numbers represent right 
+				// column of ints. Inputs always in pairs
+				istringstream iss(line);
+				int data;
+				std::vector<int> line;
+				while (iss >> data) {
+					line.push_back(data);
+				}
+				input.push_back(line);
+				lineNum++;
+			}
+		default:
+			break;
+		}
+		file.close();
 
 		return true;
 	}
@@ -134,3 +190,4 @@ public:
 private:
 
 };
+

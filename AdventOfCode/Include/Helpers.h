@@ -12,14 +12,18 @@ namespace Helpers
 {
 	// Print out a vector array
 	template<typename T>
-	void PrintVector(std::vector<T>& vect)
+	void PrintVector(std::vector<T>& vect, bool raw = false)
 	{
-		std::cout << "[";
+		if (!raw) std::cout << "[";
 		for (auto ele : vect)
 		{
-			std::cout << ele << ",";
+			if (raw)
+				std::cout << ele;
+			else 
+				std::cout << ele << ",";
+
 		}
-		std::cout << "]" << std::endl;
+		if (!raw) std::cout << "]" << std::endl;
 	}
 
 	// Simple Swap function
@@ -86,7 +90,7 @@ namespace Helpers
 	template<typename T>
 	void HeapSort_Vect(std::vector<T>& arr)
 	{
-		int n = arr.size();
+		int n = (int)arr.size();
 
 		// Build heap (rearrange vector)
 		for (int i = n / 2 - 1; i >= 0; i--)
